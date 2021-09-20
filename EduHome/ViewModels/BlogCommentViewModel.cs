@@ -7,5 +7,6 @@ namespace EduHome.ViewModels
 {
     public class BlogCommentViewModel
     {
+        public string Message { get; set; }
     }
 }
