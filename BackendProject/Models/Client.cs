@@ -10,7 +10,7 @@ namespace BackendProject.Models
     {
         public int Id { get; set; } 
         public string Name { get; set; }
-        [Required(ErrorMessage ="Emailinizi daxil edin"),EmailAddress,DataType(DataType.EmailAddress)]
+        [Required,EmailAddress,DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public string Subject { get; set; }
         [Required,MinLength(20)]

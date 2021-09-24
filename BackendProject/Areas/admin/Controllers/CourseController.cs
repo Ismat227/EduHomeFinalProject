@@ -26,11 +26,11 @@ namespace BackendProject.Areas.admin.Controllers
         }
         public IActionResult Index()
         {
-            CourseViewModel cRUDVM = new CourseViewModel()
+            CourseViewModel course = new CourseViewModel()
             {
                 Courses = _db.Courses.ToList()
             };
-            return View(cRUDVM);
+            return View(course);
         }
         public async Task<IActionResult> Detail(int? id)
         {
@@ -46,18 +46,15 @@ namespace BackendProject.Areas.admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BackendProject.Areas.admin.ViewModels.CourseViewModel courseVM)
         {
-            //if (ModelState["Photo"].ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
-            //{
-            //    return View();
-            //}
+            
             if (courseVM.Coursee.Photo == null)
             {
-                ModelState.AddModelError("Photo", "Şəkil seç ginən");
+                ModelState.AddModelError("Photo", "Sekil secin");
                 return View();
             }
             if (!courseVM.Coursee.Photo.IsImage())
             {
-                ModelState.AddModelError("Photo", "Şəkil formatı seç ginən qaqi");
+                ModelState.AddModelError("Photo", "Şəkil formatı seçin");
                 return View();
             }
             if (courseVM.Coursee.Photo.MaxLength(1400))

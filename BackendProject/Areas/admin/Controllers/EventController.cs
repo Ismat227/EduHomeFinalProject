@@ -25,55 +25,55 @@ namespace BackendProject.Areas.admin.Controllers
         }
         public IActionResult Index()
         {
-            EventViewModel eventCRUDVM = new EventViewModel()
+            EventViewModel eventvm = new EventViewModel()
             {
                 Events = _db.Events.ToList()
             };
-            return View(eventCRUDVM);
+            return View(eventvm);
         }
         public IActionResult Create()
         {
-            EventViewModel cRUDVM = new EventViewModel
+            EventViewModel eventvm = new EventViewModel
             {
                 Speakers = _db.Speakers.ToList()
             };
-            return View(cRUDVM);
+            return View(eventvm);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BackendProject.Areas.admin.ViewModels.EventViewModel eventCRUDVM)
+        public async Task<IActionResult> Create(BackendProject.Areas.admin.ViewModels.EventViewModel eventVM)
         {
-            EventViewModel cRUDVM = new EventViewModel
+            EventViewModel eventvm = new EventViewModel
             {
                 Speakers = _db.Speakers.ToList()
             };
-            if (eventCRUDVM.Photo == null)
+            if (eventVM.Photo == null)
             {
                 ModelState.AddModelError("Photo", "Shekil sechiin");
-                return View(cRUDVM);
+                return View(eventvm);
             }
-            if (!eventCRUDVM.Photo.IsImage())
+            if (!eventVM.Photo.IsImage())
             {
                 ModelState.AddModelError("Photo", "Shekil formatinda bir file sechin");
-                return View(cRUDVM);
+                return View(eventvm);
             }
 
-            if (eventCRUDVM.Photo.MaxLength(1400))
+            if (eventVM.Photo.MaxLength(1400))
             {
                 ModelState.AddModelError("Photo", "Shekilin olchusi maksimum 1400KB olmalidir");
-                return View(cRUDVM);
+                return View(eventvm);
             }
 
             Event newEventt = new Event
             {
-                Date = eventCRUDVM.Date,
-                EventDurationTime = eventCRUDVM.EventDurationTime,
-                EventName = eventCRUDVM.EventName,
-                Explain = eventCRUDVM.Explain,
-                Venue = eventCRUDVM.Venue
+                Date = eventVM.Date,
+                EventDurationTime = eventVM.EventDurationTime,
+                EventName = eventVM.EventName,
+                Explain = eventVM.Explain,
+                Venue = eventVM.Venue
             };
 
-            newEventt.Image = await eventCRUDVM.Photo.SaveImage(_env.WebRootPath, "img/event");
+            newEventt.Image = await eventVM.Photo.SaveImage(_env.WebRootPath, "img/event");
             List<EventSpiker> Eventspikers = new List<EventSpiker>();
             string test = Request.Form["states[]"];
             if (test == null)
@@ -85,7 +85,7 @@ namespace BackendProject.Areas.admin.Controllers
             if (arr.Length == 0)
             {
                 ModelState.AddModelError("", "Minimum bir nefer sechin");
-                return View(cRUDVM);
+                return View(eventvm);
             }
             List<int> ids = new List<int>(); 
             foreach (string item in arr)
@@ -129,40 +129,40 @@ namespace BackendProject.Areas.admin.Controllers
         {
             if (id == null) return NotFound();
             Event eventt = await _db.Events.Include(e => e.EventSpikers).FirstOrDefaultAsync(e => e.Id == id);
-            EventViewModel eventCRUDVM = new EventViewModel
+            EventViewModel eventvm = new EventViewModel
             {
                 Eventt = eventt,
                 EventSpikers = _db.EventSpikers.Where(e => e.EventId == eventt.Id).ToList(),
                 Speakers=_db.Speakers.ToList()
             };
-            if (eventCRUDVM == null) return NotFound();
-            return View(eventCRUDVM);
+            if (eventvm == null) return NotFound();
+            return View(eventvm);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id,EventViewModel eventVM)
         {
             Event eventt = await _db.Events.Include(e => e.EventSpikers).FirstOrDefaultAsync(e => e.Id == id);
-            EventViewModel eventCRUDVM = new EventViewModel
+            EventViewModel eventvm = new EventViewModel
             {
                 Eventt = eventt,
                 EventSpikers = _db.EventSpikers.Where(e => e.EventId == eventt.Id).ToList(),
                 Speakers = _db.Speakers.ToList()
             };
             if (eventt == null) return NotFound();
-            if (eventCRUDVM == null) return NotFound();
+            if (eventvm == null) return NotFound();
             if (id == null) return NotFound();
             if (eventVM.Photo != null)
             {
                 if (!eventVM.Photo.IsImage())
                 {
                     ModelState.AddModelError("Photo", "Shekil formatinda sech");
-                    return View(eventCRUDVM);
+                    return View(eventvm);
                 }
                 if (eventVM.Photo.MaxLength(1400))
                 {
                     ModelState.AddModelError("Photo", "Shekilin olchusu maksimum 1400KB olmalidir");
-                    return View(eventCRUDVM);
+                    return View(eventvm);
                 }
                
                 List<EventSpiker> newEventSpeaker = new List<EventSpiker>();

@@ -69,7 +69,7 @@ namespace BackendProject.Controllers
             AppUser loginUser = await _userManager.FindByEmailAsync(login.Email);
             if (loginUser == null)
             {
-                ModelState.AddModelError("", "Qaqi Email və ya parol səhvdir ");
+                ModelState.AddModelError("", "Email ve parol sehvdi ");
                 return View(login);
             }
             if (!loginUser.IsDeleted)
@@ -77,7 +77,7 @@ namespace BackendProject.Controllers
                 Microsoft.AspNetCore.Identity.SignInResult signInResult = await _signInManager.PasswordSignInAsync(loginUser, login.Password, false, true);
                 if (!signInResult.Succeeded)
                 {
-                    ModelState.AddModelError("", "Qaqi Email və ya parol səhvdir ");
+                    ModelState.AddModelError("", "Email ve parol sehvdi");
                     return View(login);
                 }
                 string role = (await _userManager.GetRolesAsync(loginUser))[0];
@@ -92,7 +92,7 @@ namespace BackendProject.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Sizin Hesabiniz artiq blok olunub qaqi");
+                ModelState.AddModelError("", "Sizin Hesabiniz artiq blok olunub");
                 return View(login);
             }
         }

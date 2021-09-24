@@ -46,11 +46,7 @@ namespace BackendProject.Areas.admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Slider slider)
         {
-            //if (slider.Slider.Photo == null)
-            //{
-            //    ModelState.AddModelError("Photo", "Qaqi şəkil seç ginən");
-            //    return View();
-            //}
+         
             if (ModelState["Photo"].ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
             {
                 return View();  
@@ -115,7 +111,7 @@ namespace BackendProject.Areas.admin.Controllers
             {
                 if (!slider.Photo.IsImage())
                 {
-                    ModelState.AddModelError("Photo", "Şəkil formatı seç ginən qaqi");
+                    ModelState.AddModelError("Photo", "Şəkil formatı seçin");
                     return View();
                 }
                 if (slider.Photo.MaxLength(1400))
