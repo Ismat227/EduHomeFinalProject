@@ -9,7 +9,7 @@
             <div class="card-body">
                 <h4 class="card-title">Event Table</h4>
 
-                <a asp-controller="EventCRUD" asp-action="Create" class="btn btn-success"><i class="mdi mdi-calendar-plus">Create</i></a>
+                <a asp-controller="EventController" asp-action="Create" class="btn btn-success"><i class="mdi mdi-calendar-plus">Create</i></a>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -30,9 +30,9 @@
                                         <img style="width:150px !important;height:150px !important " src="~/img/event/@eventt.Image" alt="image" />
                                     </td>
                                     <td>
-                                        <a asp-controller="EventCRUD" asp-action="Detail" asp-route-id="@eventt.Id" class="btn btn-success"><i class="mdi mdi-account-card-details">Detail</i></a>
-                                        <a asp-controller="EventCRUD" asp-action="Edit" asp-route-id="@eventt.Id" class="btn btn-primary "><i class="mdi mdi-table-edit">Edit</i></a>
-                                        <a asp-controller="EventCRUD" asp-action="Delete" asp-route-id="@eventt.Id" class="btn btn-danger"><i class="mdi mdi-delete-forever">Delete</i></a>
+                                        <a asp-controller="EventController" asp-action="Detail" asp-route-id="@eventt.Id" class="btn btn-success"><i class="mdi mdi-account-card-details">Detail</i></a>
+                                        <a asp-controller="EventController" asp-action="Edit" asp-route-id="@eventt.Id" class="btn btn-primary "><i class="mdi mdi-table-edit">Edit</i></a>
+                                        <a asp-controller="EventController" asp-action="Delete" asp-route-id="@eventt.Id" class="btn btn-danger"><i class="mdi mdi-delete-forever">Delete</i></a>
                                     </td>
                                 </tr>
                             }

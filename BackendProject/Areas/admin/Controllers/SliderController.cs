@@ -53,7 +53,7 @@ namespace BackendProject.Areas.admin.Controllers
             }
             if (!slider.Photo.IsImage())
             {
-                ModelState.AddModelError("Photo", "Şəkil formatı seç ginən qaqi");
+                ModelState.AddModelError("Photo", "Şəkil formatı seçin");
                 return View();
             }
             if (slider.Photo.MaxLength(1400))
